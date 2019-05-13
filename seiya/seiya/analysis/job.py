@@ -117,8 +117,9 @@ def education_stat():
     rows = session.query(
         JobModel.education,
         func.count(JobModel.education).label('count')
-    ).group_by('education').order_by('count desc')
-    return [row._asdict() for row in rows]
+    ).group_by('education').order_by(desc('count'))
+    学历要求统计 = [row._asdict() for row in rows]
+    return 学历要求统计
 
 
 def salary_by_city_and_education():
@@ -135,4 +136,8 @@ def salary_by_city_and_education():
     ).filter(
         and_(JobModel.salary_lower > 0, JobModel.salary_upper > 0)
     ).group_by(JobModel.city, JobModel.education).order_by(JobModel.city.desc())
-    return [row._asdict() for row in rows]
+    #return [row._asdict() for row in rows]
+    同等学历不同城市薪资对比 = [row._asdict() for row in rows]
+    for i in 同等学历不同城市薪资对比:
+        i['salary'] = float(format(i['salary'],'.2f'))
+    return 同等学历不同城市薪资对比
