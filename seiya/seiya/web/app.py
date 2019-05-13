@@ -88,5 +88,11 @@ def job_salary_by_city_and_education_json():
     # 同等学历不同城市薪资对比数据
     return jsonify(job.salary_by_city_and_education())
 
+
+@app.route('/house')
+def house_index():
+    # 链家网租房数据分析首页
+    return render_template('house/index.html')
+
 if __name__ == '__main__':
     app.run()
